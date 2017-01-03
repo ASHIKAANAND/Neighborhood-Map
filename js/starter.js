@@ -90,7 +90,7 @@ var ViewModel = function() {
     //live filtering function
     //1. If the filter holds no value, then the entire list is displayed
     //2. When the user enters a value, the whole placesList array and the entered value is passed
-    //   the matched place
+    //   the matched place is displayed
     self.filteredTitles = ko.computed(function() {
         var filter = self.filter().toLowerCase();
         if (!filter) {
