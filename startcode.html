@@ -12,13 +12,18 @@
             <div>
                 <hr>
                 <form>
-                    <input type="text" placeholder="Search..." required>
+                    <input type="text" placeholder="Search..." data-bind="value:filter, valueUpdate:'afterkeydown'">
                     <input type="button" value="Search">
                 </form>
+                <div data-bind="foreach:filteredTitles" >   <!-- binding to observable place list or else the changes won't be reflected -->
+                  <li class="no-bullet", data-bind="text:title, click:$parent.markerBounce"></li>
+                  <hr>
+                </div>
+
             </div>
             <div id="map"></div>
         </div>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcdEMmYFwdFHDKTAWPvZOoSw5hk1yW2rQ&v=3&callback=initMap">
+        <script async defer src="https://maps.googleapis.com/maps/api/js?library=geometry&key=AIzaSyCcdEMmYFwdFHDKTAWPvZOoSw5hk1yW2rQ&v=3&callback=initMap">
         </script>
 </body>
 </html>
