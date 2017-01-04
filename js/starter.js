@@ -1,8 +1,6 @@
 //TO DO:
-//Live filtering of markers
-//street view
+//filtering markers
 //third party api
-
 'use strict';
 
 var map; //create map as a global variable so that it is available inside the viewModel
@@ -18,7 +16,7 @@ var Model = [
             lat: 9.9825798,
             lng: 76.27542749999998
         },
-        id: 1
+
     },
     {
         title: 'Subash Park',
@@ -26,8 +24,33 @@ var Model = [
             lat: 9.971488299999999,
             lng: 76.27940949999993
         },
-        id: 2
+
+    },
+    {
+        title: 'Central Park',
+        location: {
+            lat: 9.9629,
+            lng: 76.2963
+        },
+
+    },
+    {
+        title: 'Hill Palace',
+        location: {
+            lat: 9.9526,
+            lng: 76.3639
+        },
+
+    },
+    {
+        title: 'LuLu International Shopping Mall',
+        location: {
+            lat: 10.0271,
+            lng: 76.3081
+        },
+
     }
+
 
 
 ];
@@ -91,17 +114,22 @@ var ViewModel = function() {
     //1. If the filter holds no value, then the entire list is displayed
     //2. When the user enters a value, the whole placesList array and the entered value is passed
     //   the matched place is displayed
-    self.filteredTitles = ko.computed(function() {
-        var filter = self.filter().toLowerCase();
-        if (!filter) {
-            return self.placesList();
-        } else {
-            return ko.utils.arrayFilter(self.placesList(), function(place) {
-                return place.title.toLowerCase().indexOf(filter) !== -1;
 
-            });
-        }
-    });
+    self.filteredTitles = ko.computed(function() {
+           var filter = self.filter().toLowerCase();
+           if (!filter) { for(var i=0;i<markers.length;i++){
+             markers[i].setVisible(true);
+           }
+               return self.placesList();
+           } else {
+               return ko.utils.arrayFilter(self.placesList(), function(place) {
+                   return place.title.toLowerCase().indexOf(filter) !== -1;
+
+               });
+           }
+       });
+
+
 
 
 
@@ -117,38 +145,38 @@ var ViewModel = function() {
                 infowindow.marker = null;
             });
         }
+
+
+        var streetViewService = new google.maps.StreetViewService();
+        var radius = 50;
+
+        function getStreetView(data, status) {
+            if (status == google.maps.StreetViewStatus.OK) {
+                var nearStreetViewLocation = data.location.latLng;
+                var heading = google.maps.geometry.spherical.computeHeading(
+                    nearStreetViewLocation, marker.position);
+                infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
+                var panoramaOptions = {
+                    position: nearStreetViewLocation,
+                    pov: {
+                        heading: heading,
+                        pitch: 30
+                    }
+                };
+                var panorama = new google.maps.StreetViewPanorama(
+                    document.getElementById('pano'), panoramaOptions);
+            } else {
+                infowindow.setContent('<div>' + marker.title + '</div>' +
+                    '<div>No Street View Found</div>');
+            }
+        }
+        // Use streetview service to get the closest streetview image within
+        // 50 meters of the markers position
+        streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
+        // Open the infowindow on the correct marker.
+        infowindow.open(map, marker);
     }
-
-    var streetViewService = new google.maps.StreetViewService();
-    var radius = 50;
-
-    function getStreetView(data, status) {
-             if (status == google.maps.StreetViewStatus.OK) {
-               var nearStreetViewLocation = data.location.latLng;
-               var heading = google.maps.geometry.spherical.computeHeading(
-                 nearStreetViewLocation, marker.position);
-                 infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
-                 var panoramaOptions = {
-                   position: nearStreetViewLocation,
-                   pov: {
-                     heading: heading,
-                     pitch: 30
-                   }
-                 };
-               var panorama = new google.maps.StreetViewPanorama(
-                 document.getElementById('pano'), panoramaOptions);
-             } else {
-               infowindow.setContent('<div>' + marker.title + '</div>' +
-                 '<div>No Street View Found</div>');
-             }
-           }
-           // Use streetview service to get the closest streetview image within
-           // 50 meters of the markers position
-           streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
-           // Open the infowindow on the correct marker.
-           infowindow.open(map, marker);
-
-       };
+};
 
 //Function to load map and start up app
 var initMap = function() {
@@ -158,8 +186,8 @@ var initMap = function() {
     // Constructor creates a new map - only center and zoom are required.
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
-            lat: 9.9669030,
-            lng: 76.2983230
+            lat: 9.9971,
+            lng: 76.3028
         },
         zoom: 13,
         mapTypeControl: false,
