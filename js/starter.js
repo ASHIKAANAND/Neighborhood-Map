@@ -110,15 +110,16 @@ var ViewModel = function() {
         }, 1000);
 
     };
-    self.myFunction = function() {
+     self.myFunction = function() {
         flag = flag + 1;
         var myElem = document.getElementsByClassName('options-box');
-        var hamElem = document.getElementsByClassName('hamburger');
-        hamElem.style.visibility = "hidden";
-        myElem.style.transform = "translate(0,0)"; //upon the first click, it opens the side bar
-        if (flag == 2) { //checks if this is the second click-TO CLOSE the side bar
-            hamElem.style.visibility = "block";
-            myElem.style.transform = "translate(-500px,0)"; //if yes, pushes it back off-screen
+        if(flag===1){
+        myElem[0].style.transform = "translate(0, 0)"; //upon the first click, it opens the side bar
+        console.log("It");
+      }else
+        if (flag === 2) { //checks if this is the second click-TO CLOSE the side bar
+            console.log("worked");
+            myElem[0].style.transform = "translate(-500px,0)"; //if yes, pushes it back off-screen
             flag = 0; //sets the flag back to 0
         }
     };
