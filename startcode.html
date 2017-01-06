@@ -6,12 +6,12 @@
       <script src="js/jquery.min.js"></script>
    </head>
    <body>
-      <div class="hamburger" data-bind="click:myFunction">
+      <div class="hamburger" data-bind="click:myFunction"> <!-- -->
          <img src = "images/icon.png" alt="MENU" >
          <h1 class="heading">Have you visited yet?</h1>
       </div>
       <div class="container">
-      <div class="options-box">
+      <div class="options-box" data-bind="visible:navOpen">
          <h1>Five Places You Must Visit In Kochi</h1>
          <div>
             <hr>
