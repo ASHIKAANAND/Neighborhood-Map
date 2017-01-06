@@ -7,6 +7,7 @@ var map; //create map as a global variable so that it is available inside the vi
 var icon = "images/pin.png";
 var defaultIcon = "images/redpin.png";
 var flag = 0; //for checking sidebar open-close action
+var navOpen=ko.observable(true);
 // MODEL
 var Model = [
     // Array containing location data
@@ -59,6 +60,7 @@ var Model = [
 var ViewModel = function() {
     // functions to add markers, show data, filter locations, update infowindow content etc.
     // Run API calls to get data
+
     var largeInfowindow = new google.maps.InfoWindow(); //initialise the infowindow
     var markers = [];
     var self = this;
@@ -110,18 +112,34 @@ var ViewModel = function() {
         }, 1000);
 
     };
-     self.myFunction = function() {
-        flag = flag + 1;
-        var myElem = document.getElementsByClassName('options-box');
-        if(flag===1){
-        myElem[0].style.transform = "translate(0, 0)"; //upon the first click, it opens the side bar
-        console.log("It");
-      }else
-        if (flag === 2) { //checks if this is the second click-TO CLOSE the side bar
-            console.log("worked");
-            myElem[0].style.transform = "translate(-500px,0)"; //if yes, pushes it back off-screen
-            flag = 0; //sets the flag back to 0
-        }
+
+
+    self.myFunction = function() {
+
+      flag = flag + 1;
+      if(flag===1){
+      navOpen(true);
+      console.log("It");
+    }else
+      if (flag === 2) { //checks if this is the second click-TO CLOSE the side bar
+          console.log("worked");
+          navOpen(false);
+          flag = 0; //sets the flag back to 0
+      }
+
+
+       //PREVIOUS FUNCTION
+      //   flag = flag + 1;
+      //   var myElem = document.getElementsByClassName('options-box');
+      //   if(flag===1){
+      //   myElem[0].style.transform = "translate(0, 0)"; //upon the first click, it opens the side bar
+      //   console.log("It");
+      // }else
+      //   if (flag === 2) { //checks if this is the second click-TO CLOSE the side bar
+      //       console.log("worked");
+      //       myElem[0].style.transform = "translate(-500px,0)"; //if yes, pushes it back off-screen
+      //       flag = 0; //sets the flag back to 0
+
     };
 
 
