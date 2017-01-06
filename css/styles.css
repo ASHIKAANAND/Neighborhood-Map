@@ -39,6 +39,7 @@ h1 {
 
 
 #map {
+  z-index: 1;
   bottom:0px;
   height: 100%;
   left: 30%;
@@ -46,6 +47,7 @@ h1 {
   right: 0px;
   max-width: 100%;
   width: 100%
+
 
 }
 
@@ -60,6 +62,9 @@ h1 {
   width: 30%;
   margin-left: 0px;
   background-color: grey;
+  z-index: 4;
+  position: relative;
+  transform: translate(0,0);
 
 }
 .heading{
@@ -88,11 +93,6 @@ h1 {
 }
 
 }
-
-
-
-
-
 
 
 body {
