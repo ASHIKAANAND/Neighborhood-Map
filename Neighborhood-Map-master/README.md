@@ -16,4 +16,4 @@
 
 
 ***Note:
-***Wikipedia API & Google Maps API has been used in the project for incorporating their various features
+***Wikipedia API & Google Maps API have been used in the project for incorporating their various features
