@@ -12,7 +12,7 @@
  * You can click on the markers in the map to know more about the place
  * From the list view, selection of any place will result in a change in the corresponding marker
  * You can also type in the name of the place in the search bar to highlight that particular marker alone in the map
- * At smaller portwidths, click on the "click" button to move the listview off the screen for better navigation
+ * At smaller portwidths, click on the hamburger icon to move the listview off the screen for better navigation
 
 
 ***Note:
